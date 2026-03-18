@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "nvs_flash.h"
 #include "wifi_manage.h"
+#include "HTTPS_Response.h"
 #include "esp_log.h"
 
 
@@ -10,4 +11,5 @@ void app_main(void)
     nvs_flash_init();
 
     WiFi_Connect_STA();
+    Get_Weather_Data();
 }
