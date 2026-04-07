@@ -12,8 +12,8 @@ static EventGroupHandle_t WiFi_Event_Group;
 
 wifi_config_t WiFi_cfg = {
         .sta = {
-            .ssid ="TP-Link_FD24",
-            .password = "01187441"
+            .ssid = "OPPO_Reno12_FS_5G",//"",
+            .password = "12345678"//"01187441"
         }
     };
 
@@ -33,6 +33,7 @@ static void handle_wifi_event(void *event_handler_arg, esp_event_base_t event_ba
         if(Retry_Connect < 1){
             ESP_LOGI(TAG_Wifi,"WiFi Disconnected from network %s",WiFi_cfg.sta.ssid);
         }
+        xEventGroupClearBits(WiFi_Event_Group, WIFI_CONNECT_BIT);
         xEventGroupSetBits(WiFi_Event_Group, WIFI_DISCONNECT_BIT);
     }
 
@@ -42,6 +43,7 @@ static void handle_ip_event(void *event_handler_arg, esp_event_base_t event_base
     if(event_id == IP_EVENT_STA_GOT_IP){
         ESP_LOGI(TAG_IP,"IP address ready");
         xEventGroupSetBits(WiFi_Event_Group, WIFI_CONNECT_BIT);
+        xEventGroupClearBits(WiFi_Event_Group, WIFI_DISCONNECT_BIT);
     }
     if(event_id == IP_EVENT_STA_LOST_IP){
         ESP_LOGI(TAG_IP,"IP address lost");
@@ -77,18 +79,13 @@ void WiFi_Reconnect_Task(void* const pvParameter){
     }
 }
 
-bool Wait_connect_to_wifi(){
-    EventBits_t bit = xEventGroupWaitBits(
-            WiFi_Event_Group,
-            WIFI_CONNECT_BIT ,
-            pdTRUE,
-            pdFALSE,
-            portMAX_DELAY
-        );
-        if(bit & WiFi_CONNECTED){
-            return WiFi_CONNECTED;
-        }
-        return NULL;
+int Wait_connect_to_wifi(){
+    EventBits_t bits = xEventGroupGetBits(WiFi_Event_Group);
+    if(bits & WiFi_CONNECTED){
+        return WiFi_CONNECTED;
+    }else{
+        return WiFi_DISCONNECTED;
+    }
 }
 
 void WiFi_Connect_STA(){

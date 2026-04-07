@@ -3,6 +3,7 @@
 #include "wifi_manage.h"
 #include "HTTPS_Response.h"
 #include "esp_log.h"
+#include <LCD_Interface.h>
 
 
 void app_main(void)
@@ -11,5 +12,8 @@ void app_main(void)
     nvs_flash_init();
 
     WiFi_Connect_STA();
-    Get_Weather_Data();
+    
+    Timer_Init();
+    ADC_Init();
+    LCD_Init();
 }

@@ -6,8 +6,8 @@
 #define WIFI_DISCONNECT_BIT BIT0
 #define WIFI_CONNECT_BIT BIT1
 
-#define WiFi_CONNECTED true
-#define WiFi_DISCONNECTED false
+#define WiFi_CONNECTED BIT1
+#define WiFi_DISCONNECTED BIT0
 
-bool Wait_connect_to_wifi();
+int Wait_connect_to_wifi();
 void WiFi_Connect_STA();
