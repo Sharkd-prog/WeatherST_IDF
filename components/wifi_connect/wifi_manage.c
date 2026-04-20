@@ -12,8 +12,8 @@ static EventGroupHandle_t WiFi_Event_Group;
 
 wifi_config_t WiFi_cfg = {
         .sta = {
-            .ssid = "OPPO_Reno12_FS_5G",//"",
-            .password = "12345678"//"01187441"
+            .ssid = "OPPO_Reno12_FS_5G",
+            .password = "12345678"
         }
     };
 

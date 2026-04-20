@@ -1,3 +1,5 @@
+#pragma once
+
 #define D4_PIN     GPIO_NUM_4
 #define D5_PIN     GPIO_NUM_5
 #define D6_PIN     GPIO_NUM_6

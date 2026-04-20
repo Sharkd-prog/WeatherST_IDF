@@ -1,3 +1,4 @@
+#pragma once
 
 #define RETRY_CONNECT_LIMIT 5
 #define TRY_CONNECT_DELAY 3000 

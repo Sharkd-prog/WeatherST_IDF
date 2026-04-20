@@ -1,3 +1,5 @@
+#pragma once
+
 #define CITY_COUNT 2
 
 #define CITY_COUNT_PERMITTED_REQUEST CITY_COUNT

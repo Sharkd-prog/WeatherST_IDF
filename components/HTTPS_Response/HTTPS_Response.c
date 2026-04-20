@@ -21,9 +21,9 @@ esp_err_t https_get_handler(esp_http_client_event_t *evt){
     switch(evt->event_id){
         case HTTP_EVENT_ON_DATA:
         int Index = (int)evt->user_data;
-        //int val = Wait_connect_to_wifi();
-        //if(val == WiFi_CONNECTED){
-          //  Connect_Status = 1;
+        int val = Wait_connect_to_wifi();
+        if(val == WiFi_CONNECTED){
+            Connect_Status = 1;
             if(Count_Request_Per_Hour[Index] == 0){
                 cJSON* JSON_Data = cJSON_Parse(evt->data);
                 cJSON* JSON_Data_main = cJSON_GetObjectItem(JSON_Data, "main");
@@ -37,9 +37,9 @@ esp_err_t https_get_handler(esp_http_client_event_t *evt){
                 Count_Request_Per_Hour[Index] = 1;
                 break;
             }
-        //}else{
-        //    Connect_Status = 0;
-        //}
+        }else{
+            Connect_Status = 0;
+        }
         default:
         break;
     }
